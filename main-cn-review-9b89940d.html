@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简明指引 · 华体会知识库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #ffeee2 0%, #fddac0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
+            color: #3b2e2a;
+        }
+
+        .page-wrap {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 主卡片容器 — 知识库入口感 */
+        .knowledge-card {
+            background: #fffcf9;
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 40px -12px rgba(140, 80, 50, 0.25);
+            padding: 2.8rem 2.5rem;
+            transition: box-shadow 0.25s;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .knowledge-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 32px;
+            }
+        }
+
+        /* 标题域 — 目录式说明 */
+        .hero-section {
+            border-bottom: 1px solid #eeddd2;
+            padding-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .hero-title {
+            font-size: 2.6rem;
+            font-weight: 340;
+            letter-spacing: -0.01em;
+            color: #4f3628;
+            line-height: 1.2;
+        }
+
+        .hero-title strong {
+            font-weight: 540;
+            color: #a3542e;
+        }
+
+        .hero-badge {
+            background: #eacbbc;
+            color: #4a2f20;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1.4rem;
+            border-radius: 60px;
+            white-space: nowrap;
+            display: inline-block;
+            margin-top: 0.4rem;
+        }
+
+        /* 目录感网格：四个区域说明卡片 */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 0.2rem 0 0.8rem;
+        }
+
+        .guide-item {
+            background: #f6ede6;
+            border-radius: 28px;
+            padding: 1.5rem 1.2rem 1.2rem;
+            transition: background 0.2s, transform 0.15s;
+            border: 1px solid #e7d6ca;
+        }
+
+        .guide-item:hover {
+            background: #f2e4da;
+            transform: translateY(-2px);
+        }
+
+        .guide-item .num {
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #bc7b5a;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .guide-item h3 {
+            font-size: 1.2rem;
+            font-weight: 560;
+            margin: 0.3rem 0 0.6rem;
+            color: #4d3223;
+        }
+
+        .guide-item p {
+            font-size: 0.95rem;
+            color: #4f3a2f;
+        }
+
+        /* 说明区块 — 简明指南 + 访问提醒 */
+        .insight-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            background: #faf3ec;
+            border-radius: 32px;
+            padding: 1.8rem 2rem;
+            margin: 0.5rem 0 0.2rem;
+            border: 1px solid #e7d2c0;
+        }
+
+        @media (max-width: 500px) {
+            .insight-area {
+                padding: 1.5rem 1.2rem;
+            }
+        }
+
+        .insight-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+        }
+
+        .insight-block .label {
+            font-weight: 540;
+            min-width: 7rem;
+            color: #8d5f44;
+            letter-spacing: 0.3px;
+        }
+
+        .insight-block .desc {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .reminder-note {
+            background: #faeadc;
+            padding: 1.2rem 1.5rem;
+            border-radius: 60px 20px 20px 60px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem 1.2rem;
+            margin-top: 0.2rem;
+            border-left: 6px solid #ca946f;
+        }
+
+        .reminder-note .symbol {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .reminder-note .text {
+            font-size: 0.98rem;
+            color: #3b2b20;
+        }
+
+        /* 相关信息区 */
+        .related-info {
+            background: #fff7f1;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            border: 1px solid #e6cfbe;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .related-info .faq-summary {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .related-info .faq-summary h4 {
+            font-weight: 520;
+            font-size: 1.1rem;
+            color: #5d3c29;
+            margin-bottom: 0.6rem;
+        }
+
+        .related-info .faq-summary ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .related-info .faq-summary li {
+            display: flex;
+            gap: 0.5rem;
+            align-items: baseline;
+            font-size: 0.95rem;
+        }
+
+        .related-info .faq-summary li::before {
+            content: "▹";
+            color: #b57958;
+            font-weight: 600;
+        }
+
+        .link-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* 圆角按钮感链接 */
+        .btn-link {
+            display: inline-block;
+            background: #ffffff;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 470;
+            font-size: 1rem;
+            color: #5d3824;
+            text-decoration: none;
+            border: 1px solid #dbbcac;
+            box-shadow: 0 4px 10px -4px rgba(120, 70, 40, 0.08);
+            transition: background 0.2s, box-shadow 0.2s, border-color 0.15s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-link:hover {
+            background: #f1dfd2;
+            border-color: #b88467;
+            box-shadow: 0 6px 14px -6px rgba(130, 75, 45, 0.18);
+        }
+
+        .btn-link-main {
+            background: #a95f3d;
+            border: 1px solid #9b5533;
+            color: #fff9f2;
+            box-shadow: 0 4px 12px -4px rgba(145, 80, 45, 0.3);
+        }
+
+        .btn-link-main:hover {
+            background: #9d5332;
+            border-color: #884427;
+            color: #ffffff;
+            box-shadow: 0 6px 16px -6px rgba(120, 65, 35, 0.4);
+        }
+
+        /* 脚注 */
+        .footnote {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #7b624f;
+            text-align: center;
+            opacity: 0.75;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e1cdbd;
+            margin: 0.5rem 0 1.2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <div class="knowledge-card">
+
+        <!-- hero 目录式标题 -->
+        <div class="hero-section">
+            <div>
+                <div class="hero-title">📖 简明指引 · <strong>华体会</strong> 知识库</div>
+                <div style="margin-top: 0.5rem; color: #6a4c39;">从访问提醒到实用信息，一站收纳</div>
+            </div>
+            <div class="hero-badge">✦ 目录导览</div>
+        </div>
+
+        <!-- 四个说明卡片 — 目录感布局 -->
+        <div class="guide-grid">
+            <div class="guide-item">
+                <span class="num">01</span>
+                <h3>平台概述</h3>
+                <p>了解 <a href="https://main-cn-hth.com.cn" style="color: #a3542e; text-decoration: none; font-weight: 500;">华体会</a> 的基础定位与服务范围，快速建立整体认知。</p>
+            </div>
+            <div class="guide-item">
+                <span class="num">02</span>
+                <h3>访问方式</h3>
+                <p>不同设备、网络环境下的访问建议与适配提示，保障使用顺畅。</p>
+            </div>
+            <div class="guide-item">
+                <span class="num">03</span>
+                <h3>常见场景</h3>
+                <p>资讯获取、功能使用、日常交互等典型场景的简明说明。</p>
+            </div>
+            <div class="guide-item">
+                <span class="num">04</span>
+                <h3>注意事项</h3>
+                <p>安全提醒、信息核实与官方渠道辨别，帮助您更安心使用。</p>
+            </div>
+        </div>
+
+        <!-- 说明区 + 提示区 — 融合简明指南与访问提醒 -->
+        <div class="insight-area">
+            <div class="insight-block">
+                <div class="label">📌 简明指南</div>
+                <div class="desc">
+                    初次接触 <strong>华体会</strong> 的用户，建议先从「平台概述」卡片入手，了解整体框架；
+                    随后根据自身需求对照「常见场景」进一步探索。所有信息均以官方页面为准，本页仅作索引参考。
+                    若需直接访问，可使用下方链接。
+                </div>
+            </div>
+
+            <div class="insight-block">
+                <div class="label">⚙️ 访问提醒</div>
+                <div class="desc">
+                    请确认您所打开的页面地址为 <code style="background: #e7d4c4; padding: 0.2rem 0.6rem; border-radius: 40px; font-size: 0.9rem;">main-cn-hth.com.cn</code> 域名，
+                    避免误入仿冒或非官方渠道。建议收藏本站入口以便日常使用。
+                </div>
+            </div>
+
+            <div class="reminder-note">
+                <span class="symbol">🛡️</span>
+                <span class="text"><strong>温馨提示</strong> · 保持软件与浏览器为最新版本，可提升访问体验与安全性。如遇页面异常，可尝试清除缓存或更换网络环境。</span>
+            </div>
+        </div>
+
+        <!-- 相关信息区 + FAQ 摘要 + 按钮感链接 -->
+        <div class="related-info">
+            <div class="faq-summary">
+                <h4>❓ 常见疑问摘要</h4>
+                <ul>
+                    <li><span>如何确认访问的是最新网址？ — 请以本页给出的地址为准。</span></li>
+                    <li><span>是否支持移动端访问？ — 完全适配，推荐使用系统自带浏览器。</span></li>
+                    <li><span>忘记具体功能入口怎么办？ — 可回到首页导航或利用站内搜索。</span></li>
+                </ul>
+            </div>
+            <div class="link-button-group">
+                <!-- 唯一指向 https://main-cn-hth.com.cn 的 a 标签，可见文字严格等于华体会 -->
+                <a href="https://main-cn-hth.com.cn" class="btn-link btn-link-main">华体会</a>
+                <span style="font-size: 0.9rem; color: #765d4b;">或浏览上方指南</span>
+            </div>
+        </div>
+
+        <hr>
+        <div style="display: flex; justify-content: flex-end; font-size: 0.9rem; color: #78604d;">
+            <span>📂 知识库入口 · 内容辅助参考</span>
+        </div>
+    </div>
+
+    <div class="footnote">
+        基于公开信息整理 · 请以 <a href="https://main-cn-hth.com.cn" style="color: #7f5a42; text-decoration: underline; text-underline-offset: 3px;">华体会</a> 官方页面为最新依据
+    </div>
+</div>
+</body>
+</html>
