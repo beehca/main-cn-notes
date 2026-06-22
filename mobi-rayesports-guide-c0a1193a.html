@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>雷竞技 | 信息卡片 · 赛事场景</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* hero 卡片 */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #eaeef2;
+            padding: 2.8rem 2rem 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hero-card h1 {
+            font-size: 2.4rem;
+            font-weight: 550;
+            letter-spacing: 0.02em;
+            color: #1e2b37;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #5e6f7e;
+            max-width: 600px;
+            margin: 0 auto 1.2rem;
+        }
+
+        .hero-highlight {
+            background: #f0f3f7;
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: #2c4a62;
+            border: 1px solid #dbe2e9;
+        }
+
+        /* 三卡片网格 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e7edf2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem 1.5rem 1.8rem;
+            transition: box-shadow 0.15s ease, transform 0.1s ease;
+        }
+
+        .info-card:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.6rem;
+            display: inline-block;
+            background: #f2f6fa;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 16px;
+            border: 1px solid #e3e9ef;
+        }
+
+        .info-card h2 {
+            font-size: 1.3rem;
+            font-weight: 540;
+            color: #1d2c38;
+            margin: 0.5rem 0 0.4rem;
+        }
+
+        .info-card p {
+            color: #3e5363;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-card .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .tag-list span {
+            background: #eef2f6;
+            border: 1px solid #dae1e8;
+            border-radius: 40px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.8rem;
+            color: #2c4a5e;
+        }
+
+        /* 用途 + 人群 双栏 */
+        .double-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 650px) {
+            .double-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .col-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e7edf2;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem 1.5rem;
+        }
+
+        .col-card h3 {
+            font-size: 1.25rem;
+            font-weight: 530;
+            color: #1c2b37;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .col-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .col-card li {
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+            color: #334a5a;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        .col-card li::before {
+            content: "·";
+            font-weight: 600;
+            color: #6a7f90;
+            margin-right: 0.3rem;
+        }
+
+        /* 自然链接段落卡片 */
+        .link-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e7edf2;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            padding: 2rem 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .link-card p {
+            font-size: 1rem;
+            color: #2a4050;
+            max-width: 780px;
+        }
+
+        .link-card a {
+            color: #1f5b7a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.1s;
+        }
+
+        .link-card a:hover {
+            border-bottom: 1px solid #1f5b7a;
+        }
+
+        /* 简单 FAQ 摘要 */
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e7edf2;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem 1.8rem 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-mini h4 {
+            font-size: 1rem;
+            font-weight: 540;
+            color: #1d2b36;
+            margin-bottom: 0.25rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .faq-mini p {
+            font-size: 0.9rem;
+            color: #3d5667;
+            margin-left: 0.2rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .faq-mini hr {
+            border: none;
+            border-top: 1px solid #ecf0f3;
+            margin: 0.5rem 0;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #597082;
+            padding: 1rem 0 0.2rem;
+            border-top: 1px solid #e2e8ee;
+            margin-top: 0.8rem;
+        }
+
+        .footer-note a {
+            color: #2c5d7a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+
+    <!-- hero 主视觉 -->
+    <div class="hero-card">
+        <h1>⚡ 雷竞技 · 赛事视野</h1>
+        <p class="hero-sub">从即时对局到社区切磋，围绕竞技氛围构建信息节点</p>
+        <div class="hero-highlight">🏆 雷竞技 · 不止是赛场</div>
+    </div>
+
+    <!-- 信息卡片：三个核心方向 -->
+    <div class="feature-grid">
+        <div class="info-card">
+            <div class="card-icon">📋</div>
+            <h2>赛事情报</h2>
+            <p>汇集多项目赛程、实时比分与战队动态，形成轻量信息流。</p>
+            <div class="tag-list">
+                <span>赛程</span>
+                <span>数据</span>
+                <span>更新</span>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="card-icon">🧩</div>
+            <h2>玩法引导</h2>
+            <p>面向不同阶段的参与者，拆解规则、阵容与战术思路。</p>
+            <div class="tag-list">
+                <span>新手</span>
+                <span>进阶</span>
+                <span>复盘</span>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="card-icon">📊</div>
+            <h2>社区视角</h2>
+            <p>讨论热点、选手故事与梗文化，记录赛场外的真实声音。</p>
+            <div class="tag-list">
+                <span>讨论</span>
+                <span>二创</span>
+                <span>访谈</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 双栏：用途 / 适合人群 -->
+    <div class="double-col">
+        <div class="col-card">
+            <h3>📌 常用场景</h3>
+            <ul>
+                <li>赛前查看对阵与历史交锋</li>
+                <li>赛后快速浏览数据复盘</li>
+                <li>跟进版本更新与英雄/角色变化</li>
+                <li>参与社区投票、预测或趣味讨论</li>
+            </ul>
+        </div>
+        <div class="col-card">
+            <h3>👥 适合哪些人</h3>
+            <ul>
+                <li>偶尔关注赛事的休闲观众</li>
+                <li>喜欢分析数据和阵容的爱好者</li>
+                <li>战队粉丝及内容创作者</li>
+                <li>想了解竞技文化的新人</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 自然链接段落: 嵌入『雷竞技』 -->
+    <div class="link-card">
+        <p>如果你日常会关注比赛资讯、选手动向或者战术讨论，
+        <a href="https://mobi-rayesports.com">雷竞技</a> 页面能帮你把零散信息聚合到一个相对简洁的界面里。
+        无论是赛程提醒还是赛后讨论，那里都留出了足够的空间供你浏览和筛选，整体气氛比较务实，不会感到太吵闹。</p>
+        <p style="margin-top: 0.6rem;">偶尔想换个视角看看社区里在聊什么，或者找找某个英雄的出装变化，也可以利用站内的分类快速定位。信息本身不复杂，但胜在集中。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <h4>❓ 常见疑问 · 摘要</h4>
+        <div>
+            <p><strong>内容更新频率如何？</strong> 主要赛事期间会跟随赛程同步刷新，日常有维护团队保持基础信息准确。</p>
+            <hr>
+            <p><strong>是否需要注册？</strong> 浏览大部分信息无需注册，部分互动功能可能需要简单账号。</p>
+            <hr>
+            <p><strong>移动端体验怎样？</strong> 页面针对手机做了适配，卡片布局在窄屏下依然清晰。</p>
+        </div>
+    </div>
+
+    <!-- 页脚信息 -->
+    <div class="footer-note">
+        <span>围绕竞技内容 · 信息卡片式聚合 ｜ </span>
+        <a href="https://mobi-rayesports.com">雷竞技</a>
+        <span> · 保持开放与简洁</span>
+    </div>
+
+</div>
+</body>
+</html>
